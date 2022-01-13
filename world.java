@@ -3,6 +3,8 @@ import java.io.FileReader;
 import java.util.ArrayList;
 
 
+
+
 public class world {
     private Double distance;
     ArrayList<aeroport> list;
@@ -12,7 +14,7 @@ public class world {
     }
 
     public double distance(double lon1, double lat1, double lon2, double lat2){
-        double dis = Math.pow(lat2-lat1,2)+Math.pow((lon2-lon1)Math.cos((lat2+lat1)/2) ,2);
+        double dis = Math.pow(lat2-lat1 ,2)+Math.pow((lon2-lon1)*Math.cos((lat2+lat1)/2) ,2);
         return dis;
     }
 
@@ -24,6 +26,22 @@ public class world {
         }
         System.out.println("Le code IATA ne correspond à aucun aeroport");
         return null;
+    }
+
+    public aeroport findNearestAirport(double lon, double lat){
+        double dist = distance(lon,lat,list.get(0).getLongitude(),list.get(0).getLatitude());
+        aeroport b = null;
+        double index = 0;
+        for(aeroport a : list){
+            double lat1 = a.getLatitude();
+            double lon1 = a.getLongitude();
+            double d = distance(lon,lat,lon1, lat1);
+            if(d < dist){
+                b = a;
+                dist = d;
+            }
+        }
+        return b;
     }
 
     public world (String fileName) {
