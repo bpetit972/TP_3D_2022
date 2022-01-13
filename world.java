@@ -2,12 +2,28 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
 
+
 public class world {
     private Double distance;
     ArrayList<aeroport> list;
 
     public ArrayList<aeroport> getlist() {
         return list;
+    }
+
+    public double distance(double lon1, double lat1, double lon2, double lat2){
+        double dis = Math.pow(lat2-lat1,2)+Math.pow((lon2-lon1)Math.cos((lat2+lat1)/2) ,2);
+        return dis;
+    }
+
+    public aeroport findByCode(String code){
+        for(aeroport codea : list){
+            if(codea.getIATA().equals(code)){
+                return codea;
+            }
+        }
+        System.out.println("Le code IATA ne correspond à aucun aeroport");
+        return null;
     }
 
     public world (String fileName) {
