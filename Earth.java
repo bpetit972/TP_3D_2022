@@ -1,3 +1,5 @@
+import javafx.animation.AnimationTimer;
+import javafx.geometry.Point3D;
 import javafx.scene.Group;
 import javafx.scene.PerspectiveCamera;
 import javafx.scene.image.Image;
@@ -9,7 +11,7 @@ import java.util.ArrayList;
 
 public class Earth extends Group {
 
-    private Rotate ry = new Rotate();
+    private Rotate ry = new Rotate(0, new Point3D(0,1,0));
     private Sphere sph = new Sphere();
     ArrayList<Sphere> yellowSphere = new ArrayList<>();
     PhongMaterial material = new PhongMaterial();
@@ -23,17 +25,18 @@ public class Earth extends Group {
         material.setDiffuseMap(im);
         sph.setMaterial(material);
         this.getChildren().add(sph);
+        animationTimer.start();
 
 
- /*   }
+    }
     AnimationTimer animationTimer = new AnimationTimer() {
-        double angle = 0;
+       double angle = 0;
         @Override
         public void handle(long time) {
-            ry.setAngle();
-        }
+           ry.setAngle(time/50000000);
+       }
     };
-            animationTimer.start();*/
-    }
 }
+
+
 
