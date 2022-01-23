@@ -9,6 +9,8 @@ import javafx.scene.input.PickResult;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
+import java.awt.geom.Point2D;
+
 public class Interface extends Application {
     double gety;
     double getx;
@@ -52,8 +54,10 @@ public class Interface extends Application {
                 if (pickResult.getIntersectedNode() != null) {
                     getx = pickResult.getIntersectedTexCoord().getX();
                     gety = pickResult.getIntersectedTexCoord().getY();
+
                     lon = 360 * (getx - 0.5);
-                    lat = 2*Math.toDegrees(Math.atan(Math.exp((0.5 - gety) / 0.2678))) -90;
+                    //lat = 2*Math.toDegrees(Math.atan(Math.exp((0.5 - gety) / 0.2678))) -90;
+                    lat = -Math.toDegrees((gety-0.5)*Math.PI);
                     System.out.println("longitude =" + lon + " latitude =" + lat);
                     world w = new world("airport-codes_no_comma.csv");
                    near = w.findNearestAirport(lon, lat);
@@ -64,6 +68,8 @@ public class Interface extends Application {
             }
 
         });
+
+
 
     }
         public static void main(String[] args){

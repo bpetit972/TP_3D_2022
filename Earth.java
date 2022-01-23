@@ -15,17 +15,18 @@ public class Earth extends Group {
 
     private Rotate ry = new Rotate(0, new Point3D(0, 1, 0));
     private Sphere sph = new Sphere();
-    ArrayList<Sphere> yellowSphere = new ArrayList<>();
+    private Sphere s = new Sphere(5);
+
     PhongMaterial material = new PhongMaterial();
     //private Scene ihm = new Scene();
 
 
     public Sphere createSphere(aeroport a, Color c){
-        Double X,Y,Z;
+        double X,Y,Z;
         X = sph.getRadius()*Math.cos(Math.toRadians(a.getLatitude()-13))*Math.sin(Math.toRadians(a.getLongitude()));
         Y = -(sph.getRadius()*Math.sin(Math.toRadians(a.getLatitude()-13)));
         Z = -(sph.getRadius()*Math.cos(Math.toRadians(a.getLatitude()-13))*Math.cos(Math.toRadians(a.getLongitude())));
-        Sphere s = new Sphere(5);
+
         s.setMaterial(new PhongMaterial(c));
         s.getTransforms().add(new Translate(X,Y,Z));
         return s;
@@ -33,8 +34,8 @@ public class Earth extends Group {
 
 
     public void displayRedSphere(aeroport a){
-        Sphere s = createSphere(a, Color.RED);
-        this.getChildren().add(s);
+        Sphere s1 = createSphere(a, Color.RED);
+        this.getChildren().add(s1);
     }
 
     public Earth() {
@@ -42,6 +43,7 @@ public class Earth extends Group {
         Image im = new Image("/earth_lights_4800.png");
         sph.setRadius(300);
         sph.getTransforms().add(ry);
+        s.getTransforms().add(ry);
         material.setDiffuseMap(im);
         sph.setMaterial(material);
         this.getChildren().add(sph);
